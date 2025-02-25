@@ -24,3 +24,7 @@ bool readButtonIn();
 int readSteamSensor();
 
 // WRITE FUNCTIONS
+
+
+// MONITORING
+void printDebug();

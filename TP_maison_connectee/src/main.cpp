@@ -24,4 +24,6 @@ void setup()
 
 void loop()
 {
+  printDebug();
+  delay(500);
 }

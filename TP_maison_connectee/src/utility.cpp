@@ -22,3 +22,26 @@ int readSteamSensor()
 }
 
 // WRITE
+
+
+
+
+// MONITORING
+void printDebug()
+{
+    Serial.println("");
+
+    Serial.print("TEMPERATURE_SENSOR : ");
+    Serial.println(readTemperatureSensor());
+
+    Serial.print("GAS_SENSOR : ");
+    Serial.println(readGasSensor());
+
+    Serial.print("BUTTON_IN : ");
+    Serial.println(readButtonIn());
+    
+    Serial.print("STEAM_SENSOR: ");
+    Serial.println(readSteamSensor());
+
+    Serial.println("");
+}
