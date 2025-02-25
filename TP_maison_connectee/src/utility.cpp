@@ -3,7 +3,9 @@
 // READ
 int readTemperatureSensor()
 {
-    return analogRead(PIN_TEMPERATURE_SENSOR);
+    static unsigned char dht[4] = {0, 0, 0, 0};
+    xht.receive(dht);
+    return dht[2];
 }
 
 int readGasSensor()

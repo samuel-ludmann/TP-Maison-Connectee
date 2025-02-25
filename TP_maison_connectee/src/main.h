@@ -2,10 +2,12 @@
 #include <Wire.h>
 #include <ESP32Servo.h>
 #include <LiquidCrystal_I2C.h>
+#include <xht11.h>
 
 #pragma once
 
 extern LiquidCrystal_I2C lcd;
+extern xht11 xht;
 extern bool ALARM_RAINING;
 
 // READ PINS
