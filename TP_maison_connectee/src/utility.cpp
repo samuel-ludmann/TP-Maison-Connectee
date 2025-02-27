@@ -8,14 +8,14 @@ int readTemperatureSensor()
     return dht[2];
 }
 
-int readGasSensor()
+bool readGasSensor()
 {
-    return analogRead(PIN_GAS_SENSOR);
+    return digitalRead(PIN_GAS_SENSOR) == LOW;
 }
 
 bool readButtonIn()
 {
-    return digitalRead(PIN_BUTTON_IN) == HIGH;
+    return digitalRead(PIN_BUTTON_IN) == LOW;
 }
 
 int readSteamSensor()
@@ -24,7 +24,6 @@ int readSteamSensor()
 }
 
 // WRITE
-
 
 
 
@@ -46,4 +45,10 @@ void printDebug()
     Serial.println(readSteamSensor());
 
     Serial.println("");
+}
+
+
+int getNote(int n)
+{
+    return 440*pow(2, (n-69)/12);
 }

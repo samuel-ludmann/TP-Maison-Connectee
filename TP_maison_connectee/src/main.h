@@ -3,12 +3,15 @@
 #include <ESP32Servo.h>
 #include <LiquidCrystal_I2C.h>
 #include <xht11.h>
+#include <ESP32Tone.h>
+#include <math.h>
 
 #pragma once
 
 extern LiquidCrystal_I2C lcd;
 extern xht11 xht;
 extern bool ALARM_RAINING;
+extern Servo winServo;
 
 // READ PINS
 #define PIN_TEMPERATURE_SENSOR 17
@@ -17,11 +20,13 @@ extern bool ALARM_RAINING;
 #define PIN_STEAM_SENSOR 34
 
 // WRITE PINS
+#define PIN_SERVO 5
 #define PIN_BUZZER 25
+
 
 // READ FUNCTIONS
 int readTemperatureSensor();
-int readGasSensor();
+bool readGasSensor();
 bool readButtonIn();
 int readSteamSensor();
 
@@ -30,3 +35,6 @@ int readSteamSensor();
 
 // MONITORING
 void printDebug();
+
+
+int getNote(int n);
