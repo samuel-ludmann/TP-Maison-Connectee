@@ -10,10 +10,14 @@
 
 extern LiquidCrystal_I2C lcd;
 extern xht11 xht;
-extern bool ALARM_RAINING;
+extern bool ALARM_RAIN;
 extern Servo winServo;
+extern bool ALARM_GAS;
+extern bool LED_BLINK;
+extern bool LED_STATE;
 
 // READ PINS
+#define PIN_LED 12
 #define PIN_TEMPERATURE_SENSOR 17
 #define PIN_GAS_SENSOR 23
 #define PIN_BUTTON_IN 27
@@ -22,6 +26,8 @@ extern Servo winServo;
 // WRITE PINS
 #define PIN_SERVO 5
 #define PIN_BUZZER 25
+#define PIN_FAN1 19
+#define PIN_FAN2 18
 
 
 // READ FUNCTIONS
@@ -31,10 +37,16 @@ bool readButtonIn();
 int readSteamSensor();
 
 // WRITE FUNCTIONS
-
+void openWindow();
+void closeWindow();
+void initWindow();
+void enableFan();
+void disableFan();
+void updateLCD();
+void updateBuzzer();
 
 // MONITORING
 void printDebug();
-
+void updateLed();
 
 int getNote(int n);

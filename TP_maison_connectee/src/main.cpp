@@ -3,7 +3,10 @@
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 xht11 xht(PIN_TEMPERATURE_SENSOR);
 Servo winServo;
-bool ALARM_RAINING = false;
+bool ALARM_RAIN = true;
+bool ALARM_GAS = true;
+bool LED_BLINK = true;
+bool LED_STATE = true;
 
 void setup()
 {
@@ -15,7 +18,7 @@ void setup()
   lcd.backlight();
 
   winServo.attach(PIN_SERVO);
-  winServo.write(176);
+  initWindow();
 
   // READ
   pinMode(PIN_GAS_SENSOR, INPUT);
@@ -24,40 +27,18 @@ void setup()
 
   // WRITE
   pinMode(PIN_BUZZER, OUTPUT);
-
-
+  pinMode(PIN_LED, OUTPUT);
+  pinMode(PIN_FAN1, OUTPUT);
+  pinMode(PIN_FAN2, OUTPUT);
+  
   delay(200);
 }
 
 void loop()
 {
-  static bool closeWin = false;
-  static bool lastButtonState = false;
-  static unsigned long lastDebounceTime = 0;
-  const unsigned long debounceDelay = 50;  // Anti-rebond
-
-  bool buttonState = readButtonIn();
-
-  if (buttonState != lastButtonState) {
-    lastDebounceTime = millis();  // Reset du timer si changement d'état
-  }
-
-  if ((millis() - lastDebounceTime) > debounceDelay) {
-    if (buttonState && !closeWin) {
-      closeWin = true;
-    } else if (buttonState && closeWin) {
-      closeWin = false;
-    }
-  }
-
-  lastButtonState = buttonState;  // Sauvegarde de l'état du bouton
-
-  // Contrôle du servo
-  if (closeWin) {
-    winServo.write(0);  // Position fermée
-  } else {
-    winServo.write(176);  // Position ouverte
-  }
-
-  delay(10);
+  printDebug();
+  updateLed();
+  updateLCD();
+  updateBuzzer();
+  delay(2000);
 }
