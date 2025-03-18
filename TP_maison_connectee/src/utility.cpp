@@ -67,20 +67,23 @@ void disableFan()
 void updateLCD()
 {
     lcd.clear();
-    if (ALARM_RAIN)
-    {
-        Serial.println("LCD: ALARM_RAIN");
-        lcd.println("Pluie en cours");
-    }
     if (ALARM_GAS)
     {
         Serial.println("LCD: ALARM_GAS");
-        lcd.println("Fuite de gaz");
+        lcd.setCursor(0,0);
+        lcd.print("Fuite de gaz");
+    }
+    if (ALARM_RAIN)
+    {
+        Serial.println("LCD: ALARM_RAIN");
+        lcd.setCursor(0, ALARM_GAS == false ? 0 : 1);
+        lcd.print("Pluie en cours");
     }
     if(ALARM_GAS == false && ALARM_RAIN == false)
     {
         Serial.println("LCD: OK");
-        lcd.println("Tout va bien! :)");
+        lcd.setCursor(0, 0);
+        lcd.print("Tout va bien! :)");
     }
     
 }
