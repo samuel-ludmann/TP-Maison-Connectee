@@ -28,12 +28,14 @@ void openWindow()
 {
     Serial.println("openWindow");
     winServo.write(115);
+    WINDOW_STATE = true;
 }
 
 void closeWindow()
 {
     Serial.println("closeWindow");
     winServo.write(0);
+    WINDOW_STATE = false;
 }
 
 void updateLed()
@@ -125,7 +127,3 @@ void printDebug()
     Serial.println("");
 }
 
-int getNote(int n)
-{
-    return 440 * pow(2, (n - 69) / 12);
-}

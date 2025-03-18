@@ -3,10 +3,11 @@
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 xht11 xht(PIN_TEMPERATURE_SENSOR);
 Servo winServo;
-bool ALARM_RAIN = true;
-bool ALARM_GAS = true;
-bool LED_BLINK = true;
-bool LED_STATE = true;
+bool ALARM_RAIN = false;
+bool ALARM_GAS = false;
+bool LED_BLINK = false;
+bool LED_STATE = false;
+bool WINDOW_STATE = false;
 
 void setup()
 {
@@ -36,6 +37,7 @@ void setup()
 
 void loop()
 {
+  loopTheme2();
   printDebug();
   updateLed();
   updateLCD();

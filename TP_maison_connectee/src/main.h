@@ -15,6 +15,7 @@ extern Servo winServo;
 extern bool ALARM_GAS;
 extern bool LED_BLINK;
 extern bool LED_STATE;
+extern bool WINDOW_STATE;
 
 // READ PINS
 #define PIN_LED 12
@@ -48,4 +49,5 @@ void updateBuzzer();
 void printDebug();
 void updateLed();
 
-int getNote(int n);
+// THEMES
+void loopTheme2();

@@ -1,9 +1,17 @@
 #include "main.h"
 
-bool isRaining()
+void loopTheme2()
 {
-    int val;
-    val = analogRead(PIN_STEAM_SENSOR);
-
-    return true;
+    if (readSteamSensor() >= 3000 && ALARM_RAIN == false)
+    {
+        ALARM_RAIN = true;
+        if (WINDOW_STATE == true)
+        {
+            closeWindow();
+        }
+    }
+    else if (readSteamSensor() <= 1000 && ALARM_RAIN == true)
+    {
+        ALARM_RAIN = false;
+    }
 }
