@@ -19,7 +19,7 @@ void setup()
 
   winServo.attach(PIN_SERVO);
   closeWindow();
-
+  
   // READ
   pinMode(PIN_GAS_SENSOR, INPUT);
   pinMode(PIN_BUTTON_IN, INPUT);
@@ -40,5 +40,5 @@ void loop()
   updateLed();
   updateLCD();
   updateBuzzer();
-  delay(500);
+  delay(2000);
 }

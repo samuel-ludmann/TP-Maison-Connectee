@@ -27,27 +27,13 @@ int readSteamSensor()
 void openWindow()
 {
     Serial.println("openWindow");
-    winServo.write(117);
+    winServo.write(115);
 }
 
 void closeWindow()
 {
     Serial.println("closeWindow");
     winServo.write(0);
-}
-
-void initWindow()
-{
-    if (winServo.read() < 58) // 58 = fenêtre à mi chemin (normalement)
-    {
-        Serial.println("initWindow: close");
-        closeWindow();
-    }
-    else
-    {
-        Serial.println("initWindow: open");
-        openWindow();
-    }
 }
 
 void updateLed()
@@ -103,12 +89,12 @@ void updateBuzzer()
 {
     if (ALARM_GAS)
     {
-        tone(PIN_BUZZER, 294, 250, 0);
+        tone(PIN_BUZZER, 294, 250, TONE_CHANNEL);
         
     }
     else if (ALARM_RAIN)
     {
-        tone(PIN_BUZZER, 440, 250, 0);
+        tone(PIN_BUZZER, 440, 250, TONE_CHANNEL);
         
     }
     

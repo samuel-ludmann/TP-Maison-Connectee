@@ -25,9 +25,9 @@ extern bool LED_STATE;
 
 // WRITE PINS
 #define PIN_SERVO 5
-#define PIN_BUZZER 25
-#define PIN_FAN1 19
 #define PIN_FAN2 18
+#define PIN_FAN1 19
+#define PIN_BUZZER 25
 
 
 // READ FUNCTIONS
@@ -39,7 +39,6 @@ int readSteamSensor();
 // WRITE FUNCTIONS
 void openWindow();
 void closeWindow();
-void initWindow();
 void enableFan();
 void disableFan();
 void updateLCD();
