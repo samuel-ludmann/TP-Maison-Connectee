@@ -26,11 +26,13 @@ int readSteamSensor()
 // WRITE
 void openWindow()
 {
+    Serial.println("openWindow");
     winServo.write(117);
 }
 
 void closeWindow()
 {
+    Serial.println("closeWindow");
     winServo.write(0);
 }
 
@@ -38,10 +40,12 @@ void initWindow()
 {
     if (winServo.read() < 58) // 58 = fenêtre à mi chemin (normalement)
     {
+        Serial.println("initWindow: close");
         closeWindow();
     }
     else
     {
+        Serial.println("initWindow: open");
         openWindow();
     }
 }
@@ -79,14 +83,17 @@ void updateLCD()
     lcd.clear();
     if (ALARM_RAIN)
     {
+        Serial.println("LCD: ALARM_RAIN");
         lcd.println("Pluie en cours");
     }
     if (ALARM_GAS)
     {
+        Serial.println("LCD: ALARM_GAS");
         lcd.println("Fuite de gaz");
     }
     if(ALARM_GAS == false && ALARM_RAIN == false)
     {
+        Serial.println("LCD: OK");
         lcd.println("Tout va bien! :)");
     }
     
@@ -122,6 +129,9 @@ void printDebug()
 
     Serial.print("STEAM_SENSOR: ");
     Serial.println(readSteamSensor());
+
+    Serial.print("SERVO : ");
+    Serial.println(winServo.read());    
 
     Serial.println("");
 }
