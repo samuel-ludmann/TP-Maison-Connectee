@@ -40,17 +40,22 @@ void closeWindow()
 
 void updateLed()
 {
-    if (LED_BLINK)
+    if (ALARM_GAS == true || ALARM_RAIN == true)
     {
         if (LED_STATE)
         {
-            digitalWrite(PIN_LED, HIGH);
+            digitalWrite(PIN_LED, LOW);
         }
         else
         {
-            digitalWrite(PIN_LED, LOW);
+            digitalWrite(PIN_LED, HIGH);
         }
         LED_STATE = !LED_STATE;
+    }
+    else
+    {
+        digitalWrite(PIN_LED, LOW);
+        LED_STATE = false;
     }
 }
 
