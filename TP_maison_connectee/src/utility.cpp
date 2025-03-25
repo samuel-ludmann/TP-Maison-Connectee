@@ -38,8 +38,14 @@ void closeWindow()
     WINDOW_STATE = false;
 }
 
-void updateLed()
+void updateLed(unsigned long currentMillis, long interval = 500)
 {
+    static unsigned long previousMillis = 0;
+
+    if (currentMillis - previousMillis <= interval)
+        return;
+    previousMillis = currentMillis;
+
     if (ALARM_GAS == true || ALARM_RAIN == true)
     {
         if (LED_STATE)
@@ -95,8 +101,14 @@ void updateLCD()
     
 }
 
-void updateBuzzer()
+void updateBuzzer(unsigned long currentMillis, long interval = 100)
 {
+    static unsigned long previousMillis = 0;
+
+    if (currentMillis - previousMillis <= interval)
+        return;
+    previousMillis = currentMillis;
+
     if (ALARM_GAS)
     {
         tone(PIN_BUZZER, 294, 250, TONE_CHANNEL);
@@ -110,8 +122,14 @@ void updateBuzzer()
     
 }
 // MONITORING
-void printDebug()
+void printDebug(unsigned long currentMillis, long interval = 1000)
 {
+    static unsigned long previousMillis = 0;
+
+    if (currentMillis - previousMillis <= interval)
+        return;
+    previousMillis = currentMillis;
+
     Serial.println("");
 
     Serial.print("TEMPERATURE_SENSOR : ");

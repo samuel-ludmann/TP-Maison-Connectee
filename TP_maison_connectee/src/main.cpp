@@ -37,10 +37,12 @@ void setup()
 
 void loop()
 {
+  unsigned long currentMillis = millis()
   loopTheme2();
-  printDebug();
-  updateLed();
-  updateLCD();
-  updateBuzzer();
-  delay(2000);
+  printDebug(currentMillis);
+  updateLed(currentMillis);
+  updateLCD(currentMillis);
+  updateBuzzer(currentMillis);
+
+  delay(20);
 }
