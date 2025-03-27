@@ -15,7 +15,19 @@ bool readGasSensor()
 
 bool readButtonIn()
 {
-    return digitalRead(PIN_BUTTON_IN) == LOW;
+    const int DEBOUNCE_DELAY = 300;
+    static unsigned long lastButtonPressTime = 0;
+    
+    if (digitalRead(PIN_BUTTON_IN) == LOW)
+    {
+        unsigned long currentTime = millis();
+        if (currentTime - lastButtonPressTime > DEBOUNCE_DELAY)
+        {
+            lastButtonPressTime = currentTime;
+            return true;
+        }
+    }
+    return false;
 }
 
 int readSteamSensor()
@@ -38,7 +50,7 @@ void closeWindow()
     WINDOW_STATE = false;
 }
 
-void updateLed(unsigned long currentMillis, long interval = 500)
+void updateLed(unsigned long currentMillis, long interval)
 {
     static unsigned long previousMillis = 0;
 
@@ -77,13 +89,19 @@ void disableFan()
     digitalWrite(PIN_FAN2, LOW);
 }
 
-void updateLCD()
+void updateLCD(unsigned long currentMillis, long interval)
 {
+    static unsigned long previousMillis = 0;
+
+    if (currentMillis - previousMillis <= interval)
+        return;
+    previousMillis = currentMillis;
+
     lcd.clear();
     if (ALARM_GAS)
     {
         Serial.println("LCD: ALARM_GAS");
-        lcd.setCursor(0,0);
+        lcd.setCursor(0, 0);
         lcd.print("Fuite de gaz");
     }
     if (ALARM_RAIN)
@@ -92,16 +110,15 @@ void updateLCD()
         lcd.setCursor(0, ALARM_GAS == false ? 0 : 1);
         lcd.print("Pluie en cours");
     }
-    if(ALARM_GAS == false && ALARM_RAIN == false)
+    if (ALARM_GAS == false && ALARM_RAIN == false)
     {
         Serial.println("LCD: OK");
         lcd.setCursor(0, 0);
         lcd.print("Tout va bien! :)");
     }
-    
 }
 
-void updateBuzzer(unsigned long currentMillis, long interval = 100)
+void updateBuzzer(unsigned long currentMillis, long interval)
 {
     static unsigned long previousMillis = 0;
 
@@ -112,17 +129,14 @@ void updateBuzzer(unsigned long currentMillis, long interval = 100)
     if (ALARM_GAS)
     {
         tone(PIN_BUZZER, 294, 250, TONE_CHANNEL);
-        
     }
     else if (ALARM_RAIN)
     {
         tone(PIN_BUZZER, 440, 250, TONE_CHANNEL);
-        
     }
-    
 }
 // MONITORING
-void printDebug(unsigned long currentMillis, long interval = 1000)
+void printDebug(unsigned long currentMillis, long interval)
 {
     static unsigned long previousMillis = 0;
 
@@ -145,8 +159,23 @@ void printDebug(unsigned long currentMillis, long interval = 1000)
     Serial.println(readSteamSensor());
 
     Serial.print("SERVO : ");
-    Serial.println(winServo.read());    
+    Serial.println(winServo.read());
 
     Serial.println("");
 }
 
+void updateButton(unsigned long currentMillis, long interval)
+{
+    static unsigned long previousMillis = 0;
+
+    if (currentMillis - previousMillis <= interval)
+        return;
+    previousMillis = currentMillis;
+
+    if ((ALARM_GAS || ALARM_RAIN) && readButtonIn() == true)
+    {
+            ALARM_GAS = false;
+
+            ALARM_RAIN = false;
+    }
+}

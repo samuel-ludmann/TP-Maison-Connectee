@@ -16,6 +16,7 @@ extern bool ALARM_GAS;
 extern bool LED_BLINK;
 extern bool LED_STATE;
 extern bool WINDOW_STATE;
+extern bool FAN_STATE;
 
 // READ PINS
 #define PIN_LED 12
@@ -42,12 +43,14 @@ void openWindow();
 void closeWindow();
 void enableFan();
 void disableFan();
-void updateLCD();
-void updateBuzzer();
+void updateLCD(unsigned long currentMillis, long interval = 500);
+void updateBuzzer(unsigned long currentMillis, long interval = 500);
+void updateLed(unsigned long currentMillis, long interval = 500);
+void updateButton(unsigned long currentMillis, long interval = 500);
 
 // MONITORING
-void printDebug();
-void updateLed();
+void printDebug(unsigned long currentMillis, long interval = 500);
 
 // THEMES
-void loopTheme2();
+void loopTheme2(unsigned long currentMillis, long interval = 500);
+void loopTheme6(unsigned long currentMillis, long interval = 500);

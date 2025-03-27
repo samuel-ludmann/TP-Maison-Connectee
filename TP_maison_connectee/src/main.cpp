@@ -8,6 +8,7 @@ bool ALARM_GAS = false;
 bool LED_BLINK = false;
 bool LED_STATE = false;
 bool WINDOW_STATE = false;
+bool FAN_STATE = false;
 
 void setup()
 {
@@ -37,12 +38,15 @@ void setup()
 
 void loop()
 {
-  unsigned long currentMillis = millis()
-  loopTheme2();
-  printDebug(currentMillis);
-  updateLed(currentMillis);
+  unsigned long currentMillis = millis();
+
+  updateButton(currentMillis, 100);
+  loopTheme2(currentMillis, 100);
+  loopTheme6(currentMillis, 100);
+  printDebug(currentMillis, 2000);
+  updateLed(currentMillis, 250);
   updateLCD(currentMillis);
-  updateBuzzer(currentMillis);
+  updateBuzzer(currentMillis, 2000);
 
   delay(20);
 }
